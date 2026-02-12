@@ -95,7 +95,7 @@
         <input type="time" id="clockele">
         <div class="toggle-btn">
             <button class="btn set" onclick="clockconfig()">Set</button>
-            <button class="btn reset">Reset</button>
+            <button class="btn reset" onclick="resetAlarm()">Reset</button>
         </div>
         <button class="dark" onclick="changetheme()">Light</button>
         <audio id="sound" src="./alarm.mp3"></audio>
@@ -124,7 +124,7 @@
         hrs=hrs<10?"0"+hrs:hrs;
         mins=mins<10?"0"+mins:mins;
         secs=secs<10?"0"+secs:secs;
-        const currentTime=`${hrs}:${mins}`;
+        const currentTime=`${hrs}:${mins}:${secs}`;
         clock.textContent=`${hrs}:${mins}:${secs}`;
         if(alarmSet && currentTime===alarmTime){
             document.getElementById("sound").play();
@@ -133,11 +133,12 @@
         }
         
     }
+    let alarmTime="";
+    let alarmSet=false;
     const sound=document.getElementById("sound");
     setInterval(updateClock,1000);
     updateClock();
-    let alarmTime="";
-    let alarmSet=false;
+   
 
     function clockconfig(){
         const inputval=document.getElementById("clockele").value;
@@ -150,5 +151,12 @@
         alarmSet=true;
         alert("Alarm set for:"+inputval);
     }
+    function resetAlarm(){
+    alarmSet=false;
+    alarmTime="";
+    sound.pause();
+    sound.currentTime=0;
+    alert("Alarm reset");
+}
 </script>
 </html>
